@@ -2,3 +2,5 @@
 *.swp
 phpunit.xml
 Tests/bootstrap.php
+/nbproject/private/
+/nbproject

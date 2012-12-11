@@ -3,7 +3,7 @@
 namespace Search\SphinxsearchBundle\Services\Search;
 
 use Search\SphinxsearchBundle\Services\Exception\ConnectionException;
-use Doctrine\ORM\EntityManager;
+use Doctrine\ODM\MongoDB\DocumentManager;
 class Sphinxsearch
 {
 	/**
@@ -24,7 +24,7 @@ class Sphinxsearch
     /**
      * @var \Doctrine\ORM\EntityManager
      */
-    private $em;
+    private $dm;
 
 
     /**
@@ -62,15 +62,15 @@ class Sphinxsearch
      * @param string $socket The UNIX socket that the server is listening on.
      * @param array $indexes The list of indexes that can be used.
      * @param array $mapping The list of mapping
-     * @param \Doctrine\ORM\EntityManager $em  for db query
+     * @param \Doctrine\ODM\MongoDB\DocumentManager $dm  for db query
      */
-	public function __construct($host = 'localhost', $port = '9312', $socket = null, array $indexes = array(),array $mapping = array(), EntityManager $em = null)
+	public function __construct($host = 'localhost', $port = '9312', $socket = null, array $indexes = array(),array $mapping = array(), DocumentManager $dm = null)
 	{
 		$this->host = $host;
 		$this->port = $port;
 		$this->socket = $socket;
 		$this->indexes = $indexes;
-        $this->em=$em;
+        $this->dm=$dm;
         $this->mapping=new MappingCollection($mapping);
 
 
@@ -169,7 +169,7 @@ class Sphinxsearch
 		/**
 		 * FIXME: Throw an exception if $results is empty?
 		 */
-        return new ResultCollection($results,$this->mapping,$this->em);
+        return new ResultCollection($results,$this->mapping,$this->dm);
 	}
 
   public function escapeString($string)

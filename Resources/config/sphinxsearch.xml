@@ -16,13 +16,13 @@
         </service>
 
         <service id="search.sphinxsearch.search" class="%search.sphinxsearch.search.class%">
-            <file>%kernel.root_dir%/../vendor/maninhat/search-sphinxsearchbundle/Search/SphinxsearchBundle/Services/Search/SphinxAPI.php</file>
+            <file>%kernel.root_dir%/../vendor/jerson/search-sphinxsearchbundle/Search/SphinxsearchBundle/Services/Search/SphinxAPI.php</file>
             <argument>%search.sphinxsearch.searchd.host%</argument>
             <argument>%search.sphinxsearch.searchd.port%</argument>
             <argument>%search.sphinxsearch.searchd.socket%</argument>
             <argument>%search.sphinxsearch.indexes%</argument>
             <argument>%search.sphinxsearch.mapping%</argument>
-            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument type="service" id="doctrine.odm.mongodb.document_manager" />
         </service>
     </services>
 </container>

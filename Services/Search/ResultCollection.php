@@ -1,7 +1,7 @@
 <?php
 
 namespace Search\SphinxsearchBundle\Services\Search;
-use Doctrine\ORM\EntityManager;
+use Doctrine\ODM\MongoDB\DocumentManager;
 
 class ResultCollection implements CollectionInterface
 {
@@ -13,11 +13,11 @@ class ResultCollection implements CollectionInterface
     private $results;
 
 
-    public function __construct($rawResults, MappingCollection $mapping = null, EntityManager $em = null)
+    public function __construct($rawResults, MappingCollection $mapping = null, DocumentManager $dm = null)
     {
        // echo 'result_collect';
         foreach ($rawResults as $indexName => $result) {
-            $this->results[$indexName] = new IndexSearchResult($indexName, $result,$mapping,$em);
+            $this->results[$indexName] = new IndexSearchResult($indexName, $result,$mapping,$dm);
         }
     }
 

@@ -1,7 +1,7 @@
 <?php
 
 namespace Search\SphinxsearchBundle\Services\Search;
-use \Doctrine\ORM\EntityManager;
+use \Doctrine\ODM\MongoDB\DocumentManager;
 use \Doctrine\Common\Collections\ArrayCollection;
 use Search\SphinxsearchBundle\Services\Exception\MappingException;
 
@@ -35,18 +35,18 @@ class IndexSearchResult implements SearchResultInterface
     private $mapping;
 
     /**
-     * @var \Doctrine\ORM\EntityManager
+     * @var \Doctrine\ODM\MongoDB\DocumentManager
      */
-    private $em;
+    private $dm;
 
-    public function __construct($indexName, $rawResults, MappingCollection $mapping =null , EntityManager $em = null)
+    public function __construct($indexName, $rawResults, MappingCollection $mapping =null , DocumentManager $dm = null)
     {
 
         $this->rawResults = $rawResults;
         $this->indexName = $indexName;
         $this->totalFound = $rawResults['total_found'];
         $this->mapping = $mapping;
-        $this->em = $em;
+        $this->dm = $dm;
         //die('IndexSearchResult');
         // Normalize sphinxsearch result array
         if (array_key_exists('matches', $rawResults)) {
@@ -99,8 +99,8 @@ class IndexSearchResult implements SearchResultInterface
                 $value = $match['attrs'][$matchedAttr];
                 $repoName = $mapping->findRepository($matchedAttr, $value);
                 if ($repoName) {
-                    $repo = $this->em->getRepository($repoName);
-                    $element = $repo->findOneById($match['attrs']['id']);
+                    $repo = $this->dm->getRepository($repoName);
+                    $element = $repo->find($match['attrs']['id']);
                     if ($element) {
                         if($element instanceof  SearchableInterface)
                         {
