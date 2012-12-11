@@ -110,11 +110,11 @@ class IndexSearchResult implements SearchResultInterface {
         foreach ($elements as $element) {
             $tmp_elements[]=$element;
         }
-       
+        $total = count($tmp_elements);
         // temp sort
         foreach ($ids as $id) {
          
-            for ($i = 0; $i < count($tmp_elements); $i++){
+            for ($i = 0; $i < $total; $i++){
                 if (!empty($tmp_elements[$i]) && $tmp_elements[$i]->getId()==$id) {
                     $Result->add($tmp_elements[$i]);
                     unset($tmp_elements[$i]);
@@ -123,6 +123,7 @@ class IndexSearchResult implements SearchResultInterface {
             }
         }
 
+        $tmp_elements = null;
 
 
 
