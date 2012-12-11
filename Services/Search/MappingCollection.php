@@ -27,7 +27,7 @@ class MappingCollection extends ArrayCollection
      * return string Repository name
      */
     public function findRepository($parameter,$value){
-
+       
         foreach($this->toArray() as $element){
             if($element['parameter']==$parameter && $element['value']==$value){
                 return $element['repository'];
