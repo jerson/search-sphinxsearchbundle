@@ -123,7 +123,9 @@ class IndexSearchResult implements SearchResultInterface {
             }
         }
 
+        
         $tmp_elements = null;
+        $elements = null;
 
 
 
