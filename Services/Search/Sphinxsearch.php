@@ -94,6 +94,13 @@ class Sphinxsearch {
         $this->sphinx->setSortMode($mode, $str);
     }
 
+    public function setFilterFloatRange($attribute, $min, $max, $exclude = false) {
+        $this->sphinx->SetFilterFloatRange($attribute, $min, $max, $exclude);
+    }
+    public function setGeoAnchor($attrlat, $attrlong, $lat, $long) {
+        $this->sphinx->SetGeoAnchor($attrlat, $attrlong, $lat, $long);
+    }
+
     /**
      * Set the desired search filter.
      *
@@ -126,8 +133,8 @@ class Sphinxsearch {
     public function search($query, array $indexes) {
         // $query = $this->sphinx->escapeString($query);
 
-        
-        
+
+
         $results = array();
         foreach ($indexes as $label => $options) {
             /**
